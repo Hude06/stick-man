@@ -118,6 +118,7 @@ let players = {};
 socket.emit("connection", player.id);
 // Listen for other players' updates
 
+/*
 socket.on("server", (data) => {
   for (let player in data) {
     console.log("JSON IS ", data[player]);
@@ -127,6 +128,7 @@ socket.on("server", (data) => {
     }
   }
 });
+*/
 
 function loop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -136,10 +138,10 @@ function loop() {
   // Emit player position to the server
   socket.emit("playerUpdate", {
     playerID: player.id,
-    x: player.bounds.x,
-    y: player.bounds.y,
-    XV: player.velocity.x,
-    YV: player.velocity.y,
+    x: Math.round(player.bounds.x),
+    y: Math.round(player.bounds.y),
+    XV: Math.round(player.velocity.x),
+    YV: Math.round(player.velocity.y),
     frame: player.frame,
   });
 

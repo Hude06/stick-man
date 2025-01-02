@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   console.log("New player connected:", socket.id);
   socket.on("playerUpdate", (data) => {
-    
+    console.log(data);
   });
   socket.on("disconnect", () => {
     console.log("Player disconnected:", socket.id);
