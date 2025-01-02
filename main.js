@@ -28,14 +28,12 @@ class Player {
     this.speed = 1;
     this.maxSpeed = 10;
     this.resistance = 0.3;
-    this.jumpCooldown = 0;
     // 0 = idle
     // 1 = walking
     // 2 = attacking
     this.animation = 0;
   }
   update() {
-    this.jumpCooldown -= 0.0001;
     this.bounds.y += this.velocity.y;
     this.bounds.x += this.velocity.x;
     this.velocity.x *= 1 - this.resistance;
@@ -61,13 +59,9 @@ class Player {
     } else {
       this.animation = 0;
     }
-    console.log(this.jumpCooldown);
     if (currentKey.get("w")) {
-      if (this.jumpCooldown < 0) {
-        this.velocity.y = -10;
-        this.jumpCooldown = 1;
-        console.log("w");
-      }
+      this.velocity.y = -10;
+      console.log("w");
     } else if (this.bounds.y + this.bounds.h > canvas.height) {
       console.log("hit");
       this.velocity.y = 0;
