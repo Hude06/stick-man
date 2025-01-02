@@ -62,9 +62,9 @@ class Player {
     } else {
       this.animation = 0;
     }
-    if (currentKey.get("w")) {
+    if (currentKey.get("w")) {  
       this.velocity.y = -10;
-    } else if (this.bounds.y + this.bounds.h > canvas.height) {
+    } else if (this.bounds.y + this.bounds.h > 850) {
       this.velocity.y = 0;
     } else {
       this.velocity.y += globals.gravity;
@@ -134,6 +134,7 @@ function loop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.draw();
   player.update();
+  ctx.fillRect(0, 850, 2000, 400);
   // Draw other players
   // Emit player position to the server
   socket.emit("playerUpdate", {
