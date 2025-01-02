@@ -16,7 +16,9 @@ app.get("/", (req, res) => {
 // Socket.io connection logic
 io.on("connection", (socket) => {
   console.log("New player connected:", socket.id);
-  socket.on("playerUpdate", (data) => {});
+  socket.on("playerUpdate", (data) => {
+    
+  });
   socket.on("disconnect", () => {
     console.log("Player disconnected:", socket.id);
   });
