@@ -116,6 +116,10 @@ let globals = new Globals();
 let player = new Player("player1"); // You can replace with a dynamic player ID
 let players = {};
 socket.emit("connection", player.id);
+
+
+let ground = new Image();
+ground.src = "./Assets/ground.png"
 // Listen for other players' updates
 
 /*
@@ -132,9 +136,10 @@ socket.on("server", (data) => {
 
 function loop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.imageSmoothingEnabled = false;
   player.draw();
   player.update();
-  ctx.fillRect(0, 850, 2000, 400);
+  ctx.drawImage(ground, 0, 800, 9000, 1000);
   // Draw other players
   // Emit player position to the server
   socket.emit("playerUpdate", {
