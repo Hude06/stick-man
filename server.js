@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
 let players = {
 
 }
+
 io.on("connection", (socket) => {
   players[socket.id] = {
     x: 10*(Math.random()*100),
@@ -24,11 +25,22 @@ io.on("connection", (socket) => {
   io.emit("updatePlayers", players);  
   console.log("Player connected:", socket.id);
   socket.emit('connected', { socketId: socket.id });
+  socket.on("keydown", (keycode) => {
+    console.log(keycode);
+    if (keycode === "d") {
+      players[socket.id].x += 10;
+    }
+    if (keycode === "a") {
+      players[socket.id].x -= 10;
+    }
+  })
   socket.on("disconnect", () => {
     console.log("Player disconnected:");
   });
 });
-
+setInterval(() => {
+  io.emit("updatePlayers", players);
+}, 14);
 server.listen(3000, () => {
   console.log("Server running at http://localhost:3000");
 });

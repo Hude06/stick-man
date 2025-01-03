@@ -41,13 +41,11 @@ class Player {
     console.log("keyboard");
     // Handle horizontal movement (left-right)
     if (currentKey.get("d")) {
-      this.velocity.x += this.speed;
-      this.animation = 1;
+      socket.emit("keydown", "d");
+      // this.velocity.x += this.speed;
     } else if (currentKey.get("a")) {
-      this.velocity.x -= this.speed;
-      this.animation = 1;
-    } else {
-      this.animation = 0;
+      // this.velocity.x -= this.speed;
+      socket.emit("keydown", "a");
     }
 
     // Handle jumping (upwards velocity)
@@ -146,6 +144,10 @@ socket.on("updatePlayers", (backendPlayers) => {
     const backendPlayer = backendPlayers[id];
     if (!players[id]) {
       players[id] = new Player(backendPlayer.x, backendPlayer.y, backendPlayer.id);
+    } else {
+      // Update the player's position if it already exists
+      players[id].bounds.x = backendPlayer.x;
+      // players[id].bounds.y = backendPlayer.y;
     }
   }
 });
