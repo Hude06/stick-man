@@ -56,7 +56,7 @@ class Player {
 
   applyGravity() {
     // Apply gravity continuously in the update loop
-    if (this.bounds.y + this.bounds.h < 800) {
+    if (this.bounds.y + this.bounds.h < canvas.height) {
       // Only apply gravity if the player is above the ground
       this.velocity.y += globals.gravity;
     } else {
