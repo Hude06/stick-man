@@ -137,6 +137,8 @@ socket.on("server", (data) => {
 function loop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.imageSmoothingEnabled = false;
+  ctx.shadowBlur = 20;
+ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
   player.draw();
   player.update();
   ctx.drawImage(ground, 0, 800, 9000, 1000);
