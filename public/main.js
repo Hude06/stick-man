@@ -56,7 +56,7 @@ class Player {
 
   applyGravity() {
     // Apply gravity continuously in the update loop
-    if (this.bounds.y + this.bounds.h < canvas.height) {
+    if (this.bounds.y + this.bounds.h < 800) {
       // Only apply gravity if the player is above the ground
       this.velocity.y += globals.gravity;
     } else {
@@ -136,6 +136,9 @@ let globals = new Globals();
 let players = {};
 let mySocketId = null;
 
+let ground = new Image();
+ground.src = "./Assets/ground.png"
+
 socket.emit("connection");
 
 socket.on("updatePlayers", (backendPlayers) => {
@@ -164,6 +167,11 @@ socket.on("connected", (data) => {
 
 function loop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.imageSmoothingEnabled = false;
+  ctx.shadowBlur = 20;
+ ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
+ ctx.drawImage(ground, 0, 800, 9000, 1000);
 
   // Ensure that the player exists before attempting to call its methods
 
