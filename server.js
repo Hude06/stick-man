@@ -6,25 +6,24 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server); // Create a new Socket.io instance
 
-// Serve static files (like your game)
-let players = [];
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 // Socket.io connection logic
+let players = {
+
+}
 io.on("connection", (socket) => {
-  console.log("New player connected:", socket.id);
-  players.push();
-  socket.on("playerUpdate", (data) => {
-    // console.log(data);
-    for(let i=0; i<players.length; i++) {
-      if (players[i].id === data.playerID) {
-        console.log("me");
-      }
-    }
-  });
+  players[socket.id] = {
+    x: 10*(Math.random()*100),
+    y: 10,
+    color: "white",
+  };
+  io.emit("updatePlayers", players);  
+  console.log("Player connected:", socket.id);
+  socket.emit('connected', { socketId: socket.id });
   socket.on("disconnect", () => {
     console.log("Player disconnected:");
   });
