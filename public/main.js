@@ -91,6 +91,22 @@ class Player {
     } else if (this.velocity.x < -this.maxSpeed) {
       this.velocity.x = -this.maxSpeed;
     }
+    if (currentKey.get("d")) {
+      this.velocity.x += this.speed;
+      this.animation = 1;
+    } else if (currentKey.get("a")) {
+      this.velocity.x -= this.speed;
+      this.animation = 1;
+    } else {
+      this.animation = 0;
+    }
+    if (currentKey.get("w")) {  
+      this.velocity.y = -10;
+    } else if (this.bounds.y + this.bounds.h > 850) {
+      this.velocity.y = 0;
+    } else {
+      this.velocity.y += globals.gravity;
+    }
   }
 
   updatePerSecond() {
